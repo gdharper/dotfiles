@@ -1,0 +1,5 @@
+[Icon Theme]
+Name = Oxy
+Comment = Oxygen mouse theme. Oxygenize your desktop!
+Example=left_ptr
+Inherits=core

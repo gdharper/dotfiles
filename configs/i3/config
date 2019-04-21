@@ -1,0 +1,188 @@
+# i3 config file (v4)
+# Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+
+#-----------------------------------------------------------------------------------
+# Definitions
+#
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1: Workspace"
+set $ws2 "2: Firefox"
+set $ws3 "3: Android"
+set $ws4 "4: gtkWave"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10: VNC"
+
+# Set modifier key to windows key
+set $mod Mod4
+
+#---------------------------------------------------------------------------------
+# Visual Settings
+#
+
+# Change default border
+default_border pixel
+# Gaps Settings
+gaps inner 15
+gaps outer 5
+# Font for window titles. Will also be used by the bar unless overridden below
+font pango:DejaVu Sans Mono 10
+
+#------------------------------------------------------------------------------ 
+# i3bar config
+#
+
+bar {
+        status_command 	i3status
+	mode 		hide
+	hidden_state 	hide
+	modifier 	Mod4
+	position 	top
+	colors {
+			background		#b04f48
+			focused_workspace	#e53f49 #041833 #f8dada
+			inactive_workspace	#b04f48 #213a5b	#ad9393
+			statusline		#04080b
+	}
+}
+
+#---------------------------------------------------------------------------------
+# Mode Definitions
+#
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# Mode for changing i3/system state
+set $sysmenu "system: [r]eload [l]ock [e]xit [s]hutdown re[b]oot"
+mode $sysmenu {
+	bindsym r		restart
+	bindsym l		exec i3lock, mode "default"
+	bindsym e 		exec --no-startup-id i3-msg exit
+	bindsym s 		exec --no-startup-id shutdown -P now
+	bindsym b 		exec --no-startup-id shutdown -r now
+	bindsym Return 		mode "default"
+	bindsym Escape 		mode "default"
+	bindsym $mod+Delete 	mode "default"
+}
+
+#---------------------------------------------------------------------------------
+# Workspace Config
+#
+
+# All firefox windows go to workspace 2
+assign [class="Firefox"] $ws2
+# All android studio windows go to workspace 3
+assign [class="jetbrains-studio"] $ws3
+# All gtkWave  windows go to workspace 4
+assign [class="Gtkwave"] $ws4
+# All VNC Viewer remote desktops go to workspace 10
+assign [class="Vncviewer"] $ws10
+
+#---------------------------------------------------------------------------------
+# Bindsyms
+#
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod 
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+# kill focused window
+bindsym $mod+Shift+q kill
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# split in horizontal orientation
+bindsym $mod+h split h
+# split in vertical orientation
+bindsym $mod+v split v
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# focus the parent container
+bindsym $mod+a focus parent
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Mode keys
+bindsym $mod+r mode "resize"
+bindsym $mod+Delete mode $sysmenu
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+#--------------------------------------------------------------------------
+# Startup Behavior
+#
+exec firefox
+exec i3-sensible-terminal
+exec i3-sensible-terminal
