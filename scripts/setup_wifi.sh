@@ -1,0 +1,95 @@
+#! /bin/sh
+
+if [`whoami` != "root"]; then
+    printf "Please run this script as root\n"
+    exit 1
+fi
+
+WIRELESS_NETWORK="wireless.network.base"
+WPA_CONF="wpa_supplicant.conf.base"
+
+if [ ! -f $WIRELESS_NETWORK || ! -f $WPA_CONF ]; then
+    printf "Missing base configuration file(s)\n"
+    exit 1
+fi
+
+printf "Setting Hostname\n"
+printf "Hostname: "
+read HOSTNAME
+
+printf "$HOSTNAME\n" > /etc/hostname
+printf "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOSTNAME.localdomain\t$HOSTNAME\n" > /etc/hosts
+
+printf "Creating base wpa_supplicant.conf\n"
+printf "ctrl_interface=/run/wpa_supplicant\nupdate_config=1\n" > /etc/wpa_supplicant/wpa_supplicant.conf
+
+get_ssid_psk()
+{
+    printf "ssid: "
+    read SSID
+    printf "\n"
+    stty -echo
+    printf "psk: "
+    read PSK
+    stty echo
+    printf "\n"
+}
+
+while
+    printf "Add wifi network? [y/N] "
+    read RESP
+    printf "\n"
+    [ $RESP == "y" ]
+do 
+    get_ssid_psk()
+    printf "\n%s\n" $(wpa_passphrase $SSID $PSK) >> /etc/wpa_supplicant/wpa_supplicant.conf
+done
+
+printf "Finding wireless interface\n"
+WIFI_IFACE=$(networkctl | awk '/wlan/ {print $2}')
+
+if [ $WIFI_IFACE = "" ]; then
+    printf "Could not find wireless interface\n"
+    exit 1
+fi
+
+printf "Creating systemd-networkd configuration files"
+cp $WIRELESS_NETWORK /etc/systemd/network/wireless.network
+
+
+WPA_IFACE_CONF="/etc/wpa_supplicant/wpa_supplicant-$WIFI_IFACE.conf"
+
+cp $WPA_CONF $WPA_IFACE_CONF
+
+while
+    printf "Add wifi network? [y/N] "
+    read RESP
+    printf "\n"
+    [ $RESP == "y" ]
+do
+    get_ssid_psk()
+    printf "\n%s\n" $(wpa_passphrase $SSID $PSK) >> $WPA_IFACE_CONF
+done
+
+rm /etc/resolv.conf
+
+
+printf "Enabling and starting services (systemd-networkd, wpa_supplicant, systemd-resolved)\n"
+systemctl enable systemd-networkd
+systemctl enable "wpa_supplicant@$WIFI_IFACE"
+systemctl enable systemd-resolved
+systemctl start systemd-networkd
+systemctl start "wpa_supplicant@$WIFI_IFACE"
+systemctl start systemd-resolved
+ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+printf "Complete! Exiting.\n"
+unset WIRELESS_NETWORK
+unset WPA_CONF
+unset HOSTNAME
+unset SSID
+unset PSK
+unset RESP
+unset WIFI_IFACE
+unset WPA_IFACE_CONF
+
