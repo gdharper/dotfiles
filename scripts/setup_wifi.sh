@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [`whoami` != "root"]; then
+if [ `whoami` != "root" ]; then
     printf "Please run this script as root\n"
     exit 1
 fi
@@ -8,7 +8,7 @@ fi
 WIRELESS_NETWORK="wireless.network.base"
 WPA_CONF="wpa_supplicant.conf.base"
 
-if [ ! -f $WIRELESS_NETWORK || ! -f $WPA_CONF ]; then
+if [ ! -f $WIRELESS_NETWORK ] || [ ! -f $WPA_CONF ]; then
     printf "Missing base configuration file(s)\n"
     exit 1
 fi
@@ -23,8 +23,7 @@ printf "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOSTNAME.localdomain
 printf "Creating base wpa_supplicant.conf\n"
 printf "ctrl_interface=/run/wpa_supplicant\nupdate_config=1\n" > /etc/wpa_supplicant/wpa_supplicant.conf
 
-get_ssid_psk()
-{
+get_ssid_psk {
     printf "ssid: "
     read SSID
     printf "\n"
@@ -41,7 +40,7 @@ while
     printf "\n"
     [ $RESP == "y" ]
 do 
-    get_ssid_psk()
+    get_ssid_psk
     printf "\n%s\n" $(wpa_passphrase $SSID $PSK) >> /etc/wpa_supplicant/wpa_supplicant.conf
 done
 
@@ -67,7 +66,7 @@ while
     printf "\n"
     [ $RESP == "y" ]
 do
-    get_ssid_psk()
+    get_ssid_psk
     printf "\n%s\n" $(wpa_passphrase $SSID $PSK) >> $WPA_IFACE_CONF
 done
 
