@@ -1,15 +1,6 @@
 # Arch Setup
 
 Instructions for configuring Arch system after installation.
-Uses following software:
-
-## Shell:           zsh
-## Wifi Management: Systemd-networkd
-## Editor:          Neovim
-## Display Server:  X.Org
-## Window Manager:  i3-gaps
-## Status Bar:      i3Blocks + i3Status
-## Browser:         Mozilla Firefox
 
 1.  Log in as root.
 
