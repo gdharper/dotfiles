@@ -40,8 +40,8 @@ hour=$(date +%H)
 
 # set background to dark if hour is after 7pm or before 9am
 if [ $hour -gt 19 ] || [ $hour -lt 9 ] ; then
-    feh --bg-max ~/.assets/wallpapers/nor_black.jpg &
+    feh --bg-max ~/.assets/wallpapers/wallpaper_night.jpg &
 else
-    feh --bg-max ~/.assets/wallpapers/nor_white.jpg &
+    feh --bg-max ~/.assets/wallpapers/wallpaper_day.jpg &
 fi
 exec i3
