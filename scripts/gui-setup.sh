@@ -25,7 +25,7 @@ mv i3_config.base $I3_CONFIG_PATH
 
 mkdir -p $CONFIG_BASE_PATH/i3status
 I3_STATUS_CONFIG_PATH=$CONFIG_BASE_PATH/i3status/config
-mv i3_status_config.base $I3_STATUS_CONFIG_PATH
+mv i3status_config.base $I3_STATUS_CONFIG_PATH
 
 printf "Setting up asset files\n"
 mkdir -p $ASSET_BASE_PATH/icons
@@ -40,6 +40,6 @@ printf "\n"
 mv wallpaper_day.jpg $ASSET_BASE_PATH/wallpapers/
 mv wallpaper_night.jpg $ASSET_BASE_PATH/wallpapers/
 mv $CURSOR_THEME $ASSET_BASE_PATH/icons
-mv $CURSOR_THEME ~/.icons
+cp -r $ASSET_BASE_PATH/icons/$CURSOR_THEME ~/.icons
 
 

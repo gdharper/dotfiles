@@ -23,6 +23,7 @@ printf "Binplacing configuration files\n"
 cp configs/Xresources $INSTALL_DIR/Xresources.base
 cp configs/i3_config $INSTALL_DIR/i3_config.base
 cp configs/i3status_config $INSTALL_DIR/i3status_config.base
+cp configs/init.vim $INSTALL_DIR/init.vim.base
 cp configs/pkglist.txt $INSTALL_DIR/pkglist.txt.base
 cp configs/wireless.network $INSTALL_DIR/wireless.network.base
 cp configs/wpa_supplicant.conf $INSTALL_DIR/wpa_supplicant.conf.base
