@@ -12,7 +12,9 @@ ninja
 ntp
 openssh
 parted
+python-pip
 tigervnc
+ttf-inconsolata
 unzip
 xorg-server
 xorg-xinit
