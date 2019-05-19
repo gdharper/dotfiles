@@ -23,7 +23,7 @@ printf "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOSTNAME.localdomain
 printf "Creating base wpa_supplicant.conf\n"
 printf "ctrl_interface=/run/wpa_supplicant\nupdate_config=1\n" > /etc/wpa_supplicant/wpa_supplicant.conf
 
-get_ssid_psk {
+get_ssid_psk() {
     printf "ssid: "
     read SSID
     printf "\n"

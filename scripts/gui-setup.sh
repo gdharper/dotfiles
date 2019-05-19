@@ -39,7 +39,7 @@ printf "\n"
 
 cp -f wallpaper_day.jpg $ASSET_BASE_PATH/wallpapers/
 cp -f wallpaper_night.jpg $ASSET_BASE_PATH/wallpapers/
-cp -f $CURSOR_THEME $ASSET_BASE_PATH/icons
-cp -r $ASSET_BASE_PATH/icons/$CURSOR_THEME ~/.icons
+cp -rf $CURSOR_THEME $ASSET_BASE_PATH/icons
+cp -rf $ASSET_BASE_PATH/icons/$CURSOR_THEME ~/.icons
 
 

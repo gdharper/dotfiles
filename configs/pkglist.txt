@@ -5,7 +5,8 @@ firefox
 gdb
 git
 gtkwave
-i3blocks
+i3-gaps
+i3status
 iverilog
 neovim
 ninja
@@ -13,6 +14,7 @@ ntp
 openssh
 parted
 python-pip
+rxvt-unicode
 tigervnc
 ttf-inconsolata
 unzip

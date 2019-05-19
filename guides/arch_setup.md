@@ -11,7 +11,7 @@ Instructions for configuring Arch system after installation.
     *   Set user password:  `passwd <USERNAME>`
     *   Install sudo:   `pacman -Syyu sudo`
     *   Give "wheel" group sudo permissions:    `echo "%wheel ALL=(ALL) ALL > /etc/sudoers`
-    *   Add new user to wheel group:    `usermod -ag wheel <USERNAME>
+    *   Add new user to wheel group:    `usermod -ag wheel <USERNAME>`
     *   Logout (and log back in as new user): `exit`
 
 
@@ -22,7 +22,7 @@ Instructions for configuring Arch system after installation.
 5.  Tweak system settings to use nvim as editor
     *   Remove nano:    `sudo pacman -Rs nano`
     *   Create "vim" symlink for nvim:  `sudo ln -s $(which nvim) /usr/bin/vim`
-    *   Set system editor environment variables:    ` sudo printf "\nexport EDITOR=/usr/bin/vim\nexport VISUAL=/usr/bin/vim\n" | sudo tee -a /etc/profile
+    *   Set system editor environment variables:    ` sudo printf "\nexport EDITOR=/usr/bin/vim\nexport VISUAL=/usr/bin/vim\n" | sudo tee -a /etc/profile`
 
 6.  Install zsh / neovim configuration files:   `./console-setup.sh`
 

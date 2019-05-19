@@ -12,7 +12,7 @@ printf "\nInclude = /etc/pacman.d/mirrorlist\n" >> /etc/pacman.conf
 
 printf "\nInstalling pkglist.txt: Launching pacman.\n"
 
-pacman -Syyu --needed - < pkglist.txt
+pacman -Syyu --needed - < pkglist.txt.base
 
 printf "\n All done! Exiting.\n"
 
