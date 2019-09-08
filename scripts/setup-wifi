@@ -1,16 +1,16 @@
 #! /bin/sh
 
-if [ `whoami` != "root" ]; then
+if [ $(id -u) != "0" ]; then
     printf "Please run this script as root\n"
     exit 1
 fi
 
-WIRELESS_NETWORK="wireless.network.base"
-WPA_CONF="wpa_supplicant.conf.base"
+WIRELESS_NETWORK="wireless.network"
+WPA_CONF="wpa_supplicant.conf"
 
 if [ ! -f $WIRELESS_NETWORK ] || [ ! -f $WPA_CONF ]; then
     printf "Missing base configuration file(s)\n"
-    exit 1
+    exit 2
 fi
 
 printf "Setting Hostname\n"

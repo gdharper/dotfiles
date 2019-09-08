@@ -1,8 +1,8 @@
 # Arch Installation
 
-These are the steps required to bootstrap a fresh Arch installation for my personal setup.
-*NB: If this guide is not completely followed, it is possible the install will not be in a
-bootable state and will have to be repaired / re-installed*
+Steps required to bootstrap a fresh Arch installation for my personal setup.
+*NB: If this guide is not completely followed, it is possible the install
+will not be in a bootable state and will have to be repaired / re-installed*
 
 1.  Create live USB with bootable image
     *  Download arch .iso [here](https://www.archlinux.org/download/)
@@ -15,14 +15,17 @@ bootable state and will have to be repaired / re-installed*
 
 3.  Ensure that your network card is up via `ip link`. Connect to either a wired or wireless network.
     *  For wireless: `wifi-menu`
-    *  Verify connection: `ping archlinux.org -c3`
+    *  Verify connection: `ping archlinux.org -c3`. This sometimes fails a few times.
 
 4.  Update system clock: `timedatectl set-ntp true`
 
 5.  Set up install target disk
     *  Determine correct disk: `lsblk`
     *  Partition as desired (probably uefi + primary partitions): `parted /dev/XXX`
-    *  Format partitions: `mkfs.ext4 /dev/XXX` or `mkfs.fat -F32 /dev/XXX`
+        *   UEFI:       `mkpart ESP fat32 1MiB 513Mib`, ` set 1 boot on`
+        *   Primary:    `mkpart primary ext4 513MiB [ 100% || Swap start ]`
+        *   Swap:       `mkpart primary linux-swap [end of primary] 100%`
+    *  Format partitions: `mkfs.ext4 /dev/XXX` | `mkfs.fat -F32 /dev/XXX` | `mkswap /dev/XXX`, `swapon /dev/XXX`
     *  Mount primary partition: `mount /dev/XXX# /mnt`
     *  Create mountpoint for efi partition: mkdir `/mnt/efi`
     *  Mount efi partition: `mount /dev/XXX# /mnt/efi`
