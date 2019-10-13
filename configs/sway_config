@@ -209,6 +209,9 @@ exec $term
 # Visual Settings
 #
 
+# Uncomment and change output name for HiDPI outputs
+# output eDP-1 scale 2
+
 # Change default border
 default_border pixel
 # Gaps Settings

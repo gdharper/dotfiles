@@ -61,6 +61,7 @@ will not be in a bootable state and will have to be repaired / re-installed*
 
 14. If HiDPI screen, set console font to biggest system font
     *   `echo "FONT=latarcyrheb-sun32" > /etc/vconsole.conf`
+
 15. Unmount and power off.
     *  Exit chroot: `exit`
     *  Unmount efi partition: `umount /mnt/efi`
@@ -71,3 +72,4 @@ will not be in a bootable state and will have to be repaired / re-installed*
 At this point, the system is in a bootable state, assuming the bootloader was configured correctly.
 If the bootloader was mis-installed, the system will need to be repaired or this process repeated.
 Assuming wpa_supplicant was added via pacstrap, the network should be ready for configuration on reboot.
+
