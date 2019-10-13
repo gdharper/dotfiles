@@ -18,7 +18,17 @@ bindkey "${terminfo[kend]}" end-of-line		# end key -> end of line
 bindkey "${terminfo[kdch1]}" delete-char	# delete key -> delete next character
 bindkey "\e" kill-whole-line			# escape key -> clear line
 
+
+# Prompts
 PS1="%B%n%b@%m:%F{blue}%B%~/%b%f%# " 
 RPS1="%B%F{%(?.green.red)}%?%f%b" # Bold : Use color : (Last command exit status 0) ? green :red -> print last command exit status /color /bold
+
+
 alias ls='ls --color=auto'
+alias ll='ls -l'
+
+# sway doesn't like nvidia driver
+alias sway='sway --my-next-gpu-wont-be-nvidia'
+
+export PATH=$PATH:/home/$(whoami)/bin
 
