@@ -1,9 +1,0 @@
-#! /bin/sh
-
-if [ `whoami` != "root" ]; then
-    printf "Please run this script as root\n"
-    exit 1
-fi
-
-tee /sys/bus/pci/rescan <<< 1
-
