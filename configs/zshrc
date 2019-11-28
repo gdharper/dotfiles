@@ -13,11 +13,18 @@ zstyle :compinstall filename '/home/greg/.zshrc'
 autoload -Uz compinit
 compinit
 
+
 bindkey "${terminfo[khome]}" beginning-of-line	# home key -> start of line
 bindkey "${terminfo[kend]}" end-of-line		# end key -> end of line
 bindkey "${terminfo[kdch1]}" delete-char	# delete key -> delete next character
 bindkey "\e" kill-whole-line			# escape key -> clear line
 
+
+# sway does weird shit to my home and end keys
+if [ -n $SWAYSOCK ] ; then
+    bindkey "\e[H" beginning-of-line
+    bindkey "\e[F" end-of-line
+fi
 
 # Prompts
 PS1="%B%n%b@%m:%F{blue}%B%~/%b%f%# " 
@@ -31,4 +38,12 @@ alias ll='ls -l'
 alias sway='sway --my-next-gpu-wont-be-nvidia'
 
 export PATH=$PATH:/home/$(whoami)/bin
+export MOZ_ENABLE_WAYLAND=1
+
+# opam configuration
+test -r /home/greg/.opam/opam-init/init.zsh && . /home/greg/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# systemctl use user env
+systemctl --user import-environment
+
 

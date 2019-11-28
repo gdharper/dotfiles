@@ -4,10 +4,10 @@
 
 [colors]
     # special
-    foreground      = #dedede
-    foreground_bold = #dedede
-    cursor          = #dedede
-    background      = #161616
+    foreground      = rgba(222,222,222,1)
+    foreground_bold = rgba(222,222,222,1)
+    cursor          = rgba(222,222,222,1)
+    background      = rgba(22,22,22,.75)
     # black
     color0          = #282a2e
     color8          = #373b41

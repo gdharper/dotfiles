@@ -32,7 +32,6 @@ set hlsearch
 " Show Command in bottom bar
 set showcmd
 
-
 " Better autocomplete
 set wildmenu
 
@@ -52,13 +51,17 @@ nnoremap <space> za
 set foldmethod=indent
 
 "
-" Movement
+" KEY MAPPING
 "
-nnoremap j gj
-nnoremap k gk
+" Normal mode
+"
+" Movement
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap B ^
-nnoremap E ^
+nnoremap E $
 
-
-
+" Insert mode
+"
+inoremap jk <Esc>
 
