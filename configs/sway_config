@@ -54,7 +54,8 @@ set $menu bemenu
 #
 
 bar
-{
+{   
+    font pango:DejaVu Sans Mono 10
     status_command 	i3status
 	mode 		    hide
 	hidden_state 	hide
@@ -181,13 +182,14 @@ mode "resize" {
 }
 
 # Mode for changing i3/system state
-set $sysmenu "system: [r]eload [l]ock [e]xit [s]hutdown re[b]oot"
+set $sysmenu "system: [r]eload [l]ock [e]xit sus[p]end re[b]oot [s]hutdown"
 mode $sysmenu {
-	bindsym r		        restart
+	bindsym r		        reload
 	bindsym l		        exec 'swaylock -f -c 000000', mode "default"
 	bindsym e 		        exit
 	bindsym s 		        exec --no-startup-id shutdown -P now
 	bindsym b 		        exec --no-startup-id shutdown -r now
+    bindsym p               exec 'systemctl suspend', mode "default"
 	bindsym Return 		    mode "default"
 	bindsym Escape 		    mode "default"
 	bindsym $mod+BackSpace 	mode "default"
@@ -201,6 +203,7 @@ bindsym $mod+BackSpace mode $sysmenu
 # Startup Configuration
 #
 
+exec 'set-wallpaper'
 exec 'MOZ_ENABLE_WAYLAND=1 /usr/bin/firefox'
 exec $term
 exec $term
@@ -209,8 +212,8 @@ exec $term
 # Visual Settings
 #
 
-# Uncomment and change output name for HiDPI outputs
-# output eDP-1 scale 2
+# Main display is HiDPI
+output eDP-1 scale 2.5
 
 # Change default border
 default_border pixel

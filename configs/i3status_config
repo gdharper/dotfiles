@@ -5,33 +5,40 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
+        output_format = none
+        separator = "  |  "
         colors = false
         interval = 5
 }
 
 order += "tztime local"
 order += "disk /"
-order += "load"
+order += "cpu_usage"
 order += "battery all"
 order += "wireless _first_"
 
+tztime local
+{
+    format = "%Y-%m-%d %I:%M:%S %p"
+}
+
+disk "/"
+{
+    format = "%avail Remaining"
+}
+
+cpu_usage
+{
+    format = " Core Utiliziation: %usage"
+}
+
+battery all
+{
+    format = "Battery: %status %percentage %remaining"
+}
+
 wireless _first_ {
-        format_up = "W: (%quality at %essid) %ip"
-        format_down = "W: down"
+        format_up = "W:%quality at %essid %ip"
+        format_down = "W: Down"
 }
 
-battery all {
-        format = "%status %percentage %remaining"
-}
-
-tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
-}
-
-load {
-        format = "%1min"
-}
-
-disk "/" {
-        format = "%avail"
-}
