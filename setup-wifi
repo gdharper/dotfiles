@@ -5,8 +5,8 @@ if [ $(id -u) != "0" ]; then
     exit 1
 fi
 
-WIRELESS_NETWORK="wireless.network"
-WPA_CONF="wpa_supplicant.conf"
+WIRELESS_NETWORK="./configs/wireless.network"
+WPA_CONF="./configs/wpa_supplicant.conf"
 
 if [ ! -f $WIRELESS_NETWORK ] || [ ! -f $WPA_CONF ]; then
     printf "Missing base configuration file(s)\n"
@@ -20,8 +20,10 @@ read HOSTNAME
 printf "$HOSTNAME\n" > /etc/hostname
 printf "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOSTNAME.localdomain\t$HOSTNAME\n" > /etc/hosts
 
+
+BASE_SUPP="/etc/wpa_supplicant/wpa_supplicant.conf"
 printf "Creating base wpa_supplicant.conf\n"
-printf "ctrl_interface=/run/wpa_supplicant\nupdate_config=1\n" > /etc/wpa_supplicant/wpa_supplicant.conf
+printf "ctrl_interface=/run/wpa_supplicant\nupdate_config=1\n" > $BASE_SUPP
 
 get_ssid_psk() {
     printf "ssid: "
@@ -41,7 +43,7 @@ while
     [ $RESP == "y" ]
 do 
     get_ssid_psk
-    printf "\n%s\n" $(wpa_passphrase $SSID $PSK) >> /etc/wpa_supplicant/wpa_supplicant.conf
+    printf "\n%s\n" $(wpa_passphrase $SSID $PSK) >> $BASE_SUPP
 done
 
 printf "Finding wireless interface\n"

@@ -17,39 +17,32 @@ mkdir -p $CONFIG_DIR
 mkdir -p $REPOS_DIR
 mkdir -p $SCRIPTS_DIR
 
-if [ "$1" == "--evoeco" ] ; then
-    mkdir -p ~/Evoeco/Repos
-    mkdir -p ~/Evoeco/Auth
-    mkdir -p ~/Evoeco/Docs
-fi
+printf "Copying Asset Files"
+mkdir -p $ASSETS_DIR/wallpapers
 
+cp -f ./assets/wallpaper_day.jpg $ASSETS_DIR/wallpapers/
+cp -f ./assets/wallpaper_night.jpg $ASSETS_DIR/wallpapers/
 
-printf "Copying config files.\n"
+printf "Softlinking Dotfiles.\n"
 
 # ZSH
 mkdir -p "$CONFIG_DIR/zsh"
-cp -f zshrc $CONFIG_DIR/zsh/zshrc
+ln -sf ./configs/zshrc $CONFIG_DIR/zsh/zshrc
 ln -sf $CONFIG_DIR/zsh/zshrc ~/.zshrc
 
 # NeoVim
 mkdir -p "$CONFIG_DIR/nvim"
-cp -f init.vim $CONFIG_DIR/nvim/init.vim
+ln -sf ./configs/init.vim $CONFIG_DIR/nvim/init.vim
 
 # Sway WM
 mkdir -p "$CONFIG_DIR/sway"
-cp -f sway_config $CONFIG_DIR/sway/config
+ln -sf ./configs/sway_config $CONFIG_DIR/sway/config
 
 # i3status
 mkdir -p "$CONFIG_DIR/i3status"
-cp -f i3status_config $CONFIG_DIR/i3status/config
+ln -sf ./configs/i3status_config $CONFIG_DIR/i3status/config
 
 # Termite
 mkdir -p "$CONFIG_DIR/termite"
-cp -f termite_config $CONFIG_DIR/termite/config
-
-printf "Copying Asset Files"
-mkdir -p $ASSETS_DIR/wallpapers
-
-cp -f wallpaper_day.jpg $ASSETS_DIR/wallpapers/
-cp -f wallpaper_night.jpg $ASSETS_DIR/wallpapers/
+ln -sf ./configs/termite_config $CONFIG_DIR/termite/config
 
