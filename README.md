@@ -1,13 +1,12 @@
 # arch-dotfiles
+
 Configuration files and scripts for my Arch Linux install.
-This is only tested on my 2015 Thinkpad W530 and a baytrail
-Chromebook with the MrChromeBox Full ROM fw set.
+This setup is currently running on a Lenovo Thinkpad X1 Extreme Gen 2.
 
 ## General usage for fresh Arch Setup
     1.  Follow guides/arch_install.md to install base arch image.
 
     2.  Modify config files and script files as desired.
-        a.  publish-for-install will copy all files to an installation dir
 
     3.  Follow guides/arch_setup.md to configure system.
 
@@ -21,6 +20,5 @@ setup a fresh Arch install with my personal base toolchain.
     *   Display Protocol:   Wayland
     *   Window Manger:      Sway
     *   Status Bar:         Swaybar + i3Status
-    *   Launcher:           TBD
     *   Browser:            Mozilla Firefox
  
