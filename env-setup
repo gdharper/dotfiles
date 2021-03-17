@@ -31,8 +31,12 @@ ln -sf ./configs/zshrc $CONFIG_DIR/zsh/zshrc
 ln -sf $CONFIG_DIR/zsh/zshrc ~/.zshrc
 
 # NeoVim
-mkdir -p "$CONFIG_DIR/nvim"
-ln -sf ./configs/init.vim $CONFIG_DIR/nvim/init.vim
+_NVIM_DIR="$CONFIG_DIR/nvim"
+mkdir -p "$_NVIM_DIR/ftdetect"
+mkdir -p "$_NVIM_DIR/ftplugin"
+ln -sf $(pwd)/configs/nvim/init.vim $_NVIM_DIR/init.vim
+ln -sf $(pwd)/configs/nvim/markdown-detect.vim $_NVIM_DIR/ftdetect/markdown.vim
+ln -sf $(pwd)/configs/nvim/markdown-plugin.vim $_NVIM_DIR/ftplugin/markdown.vim
 
 # Sway WM
 mkdir -p "$CONFIG_DIR/sway"
